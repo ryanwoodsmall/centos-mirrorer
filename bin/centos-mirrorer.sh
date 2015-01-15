@@ -1,6 +1,9 @@
 #!/bin/bash
 
-source $(dirname ${0})/c6repomirrorenv.sh
+CONFFILE="$(dirname ${0})/../conf/centos-mirrorer.env"
+
+test -e ${CONFFILE} || exit 1
+source ${CONFFILE}
 
 for i in base extras updates ; do
 
