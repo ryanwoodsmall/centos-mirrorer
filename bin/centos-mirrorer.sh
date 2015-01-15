@@ -2,8 +2,12 @@
 
 CONFFILE="$(dirname ${0})/../conf/centos-mirrorer.env"
 
-test -e ${CONFFILE} || exit 1
-source ${CONFFILE}
+if [ -e ${CONFFILE} ] ; then
+  source ${CONFFILE}
+else
+  echo "could not find configuration file ${CONFFILE}" 1>&2
+  exit 1
+fi
 
 for i in base extras updates ; do
 
