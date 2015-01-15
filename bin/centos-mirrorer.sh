@@ -63,7 +63,7 @@ for REPODEF in ${REPOLIST} ; do
           xargs rm -f
   fi
 
-  # finally create the repo structure - use a groups file if we have it
+  # create the repo structure - use a groups file if we have it
   if [ -e comps.xml ] ; then  
     createrepo \
       --update \
@@ -78,6 +78,11 @@ for REPODEF in ${REPOLIST} ; do
       --pretty \
       .
   fi
+
+  # build out a nice set of pages for the repository using repoview
+  repoview \
+    --title "${REPOID}" \
+    .
 
   popd
 
