@@ -1,7 +1,9 @@
 #!/bin/bash
 
+# this should be customized based on your site
 CONFFILE="$(dirname ${0})/../conf/centos-mirrorer.env"
 
+# ... and it should exist
 if [ -e ${CONFFILE} ] ; then
   source ${CONFFILE}
 else
@@ -9,33 +11,50 @@ else
   exit 1
 fi
 
-for i in base extras updates ; do
+for REPODEF in ${REPOLIST} ; do
 
-  test -d ${C6REPOBASE}/${i} || \
-    mkdir -p ${C6REPOBASE}/${i}
-  pushd ${C6REPOBASE}/${i}
+  # repo names (as in /etc/yum.repos.d/name.repo) should have dash, not colon
+  REPOID=${REPODEF//:/-}
 
+  # split the repo value up into dist, ver, arch, repo name
+  IFS=":" read -a REPOARRAY <<< "${REPODEF}"
+  REPODIST=${REPOARRAY[0]}
+  REPOVER=${REPOARRAY[1]}
+  REPOARCH=${REPOARRAY[2]}
+  REPONAME=${REPOARRAY[3]}
+
+  # build our repo mirror directory based on our list
+  REPOMIRRORDIR="${REPOBASE}/${REPODIST}/${REPOVER}/${REPOARCH}/${REPONAME}"
+
+  # make sure we have a mirror dir and chdir to it
+  test -d ${REPOMIRRORDIR} || \
+    mkdir -p ${REPOMIRRORDIR}
+  pushd ${REPOMIRRORDIR}
+
+  # sync the repo
   reposync \
     --norepopath \
     --newest-only \
     --downloadcomps \
-    --repoid=centos6-${i}
-  
+    --repoid=${REPOID}
+
+  # delete old packages
   repomanage \
-    --keep=1 \
+    --keep=${NEWPKGSTOKEEP} \
     --old \
     . | \
         wc -l | \
           grep -q ^0$
   if [ $? -ne 0 ] ; then
     repomanage \
-      --keep=1 \
+      --keep=${NEWPKGSTOKEEP} \
       --old \
       --space \
       . | \
           xargs rm -f
   fi
 
+  # finally create the repo structure - use a groups file if we have it
   if [ -e comps.xml ] ; then  
     createrepo \
       --update \
