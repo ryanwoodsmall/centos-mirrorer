@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# first things first, we need reposync, repomanage, createrepo, ...
+for REPOPROG in reposync repomanage createrepo repoview ; do
+  which ${REPOPROG} >/dev/null 2>&1
+  if [ $? -ne 0 ] ; then
+    echo "we need '${REPOPROG}' in the path to build a mirror" 1>&2
+    exit
+  fi
+done
+
 # this should be customized based on your site
 CONFFILE="$(dirname ${0})/../conf/centos-mirrorer.env"
 
