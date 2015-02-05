@@ -25,6 +25,9 @@ for REPODEF in ${REPOLIST} ; do
   # repo names (as in /etc/yum.repos.d/name.repo) should have dash, not colon
   REPOID=${REPODEF//:/-}
 
+  # clean our repo metadata so we get the latest info
+  yum --disablerepo='*' --enablerepo=${REPOID} clean all
+
   # split the repo value up into dist, ver, arch, repo name
   IFS=":" read -a REPOARRAY <<< "${REPODEF}"
   REPODIST=${REPOARRAY[0]}
