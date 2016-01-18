@@ -1,0 +1,30 @@
+# XXX - all repos should be disabled by default to prevent conflicts
+#       this is used by the mirror script to copy repositories
+#       note that the $basearch and $releasever are hard-coded
+
+[centos-5-x86_64-epel]
+name=Extra Packages for Enterprise Linux 5 - x86_64
+#baseurl=http://download.fedoraproject.org/pub/epel/5/x86_64
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-5&arch=x86_64
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-5
+
+[centos-5-x86_64-epel-debuginfo]
+name=Extra Packages for Enterprise Linux 5 - x86_64 - Debug
+#baseurl=http://download.fedoraproject.org/pub/epel/5/x86_64/debug
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-debug-5&arch=x86_64
+failovermethod=priority
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-5
+gpgcheck=1
+
+[centos-5-x86_64-epel-source]
+name=Extra Packages for Enterprise Linux 5 - x86_64 - Source
+#baseurl=http://download.fedoraproject.org/pub/epel/5/SRPMS
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-source-5&arch=x86_64
+failovermethod=priority
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-5
+gpgcheck=1
