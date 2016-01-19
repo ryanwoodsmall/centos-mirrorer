@@ -69,6 +69,7 @@ for REPODEF in ${REPOLIST} ; do
   # create the repo structure - use a groups file if we have it
   if [ -e comps.xml ] ; then  
     createrepo \
+      --checksum=${SUMTYPE}\
       --update \
       --verbose \
       --pretty \
@@ -76,6 +77,7 @@ for REPODEF in ${REPOLIST} ; do
       .
   else
     createrepo \
+      --checksum=${SUMTYPE}\
       --update \
       --verbose \
       --pretty \
