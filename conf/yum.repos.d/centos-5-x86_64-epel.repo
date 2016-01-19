@@ -9,7 +9,7 @@ mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-5&arch=x86_64
 failovermethod=priority
 enabled=0
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-5
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
 
 [centos-5-x86_64-epel-debuginfo]
 name=Extra Packages for Enterprise Linux 5 - x86_64 - Debug
@@ -17,7 +17,7 @@ name=Extra Packages for Enterprise Linux 5 - x86_64 - Debug
 mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-debug-5&arch=x86_64
 failovermethod=priority
 enabled=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-5
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
 gpgcheck=1
 
 [centos-5-x86_64-epel-source]
@@ -26,5 +26,5 @@ name=Extra Packages for Enterprise Linux 5 - x86_64 - Source
 mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-source-5&arch=x86_64
 failovermethod=priority
 enabled=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-5
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL
 gpgcheck=1
