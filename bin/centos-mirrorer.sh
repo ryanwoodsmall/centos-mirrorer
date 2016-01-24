@@ -36,6 +36,9 @@ for REPODEF in ${REPOLIST} ; do
   REPONAME=${REPOARRAY[3]}
   REPOSUM=${REPOARRAY[4]}
 
+  # chop off -sumttype from repo id
+  REPOID=${REPOID/%-${REPOSUM}/}
+
   # build our repo mirror directory based on our list
   REPOMIRRORDIR="${REPOBASE}/${REPODIST}/${REPOVER}/${REPOARCH}/${REPONAME}"
 
