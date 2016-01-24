@@ -34,6 +34,7 @@ for REPODEF in ${REPOLIST} ; do
   REPOVER=${REPOARRAY[1]}
   REPOARCH=${REPOARRAY[2]}
   REPONAME=${REPOARRAY[3]}
+  REPOSUM=${REPOARRAY[4]}
 
   # build our repo mirror directory based on our list
   REPOMIRRORDIR="${REPOBASE}/${REPODIST}/${REPOVER}/${REPOARCH}/${REPONAME}"
@@ -69,7 +70,7 @@ for REPODEF in ${REPOLIST} ; do
   # create the repo structure - use a groups file if we have it
   if [ -e comps.xml ] ; then  
     createrepo \
-      --checksum=${SUMTYPE}\
+      --checksum=${REPOSUM}\
       --update \
       --verbose \
       --pretty \
@@ -77,7 +78,7 @@ for REPODEF in ${REPOLIST} ; do
       .
   else
     createrepo \
-      --checksum=${SUMTYPE}\
+      --checksum=${REPOSUM}\
       --update \
       --verbose \
       --pretty \
