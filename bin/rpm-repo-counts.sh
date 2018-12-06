@@ -8,13 +8,15 @@ else
   source "${CONFFILE}"
 fi
 
-# XXX - need to build this from ${REPOLIST}
-for i in ${REPOBASE}/*/*/*/*/ ; do
+REPOLIST="$(echo ${REPOLIST} | tr \  \\n | cut -f1-4 -d: | tr : / | sed "s#^#${REPOBASE}/#g" | sed 's#$#/#g' | xargs echo)"
+
+for i in ${REPOLIST} ; do
   echo "${i}"
   r="$(basename ${i})"
   a="$(basename $(dirname ${i}))"
   v="$(basename $(dirname $(dirname ${i})))"
-  f="/tmp/centos-${v}-${a}-${r}.out"
+  o="$(basename $(dirname $(dirname $(dirname ${i}))))"
+  f="/tmp/${o}-${v}-${a}-${r}.out"
   find "${i}" -type f -name \*.rpm | awk -F/ '{print $NF}' | sort > "${f}"
   echo "${f} $(cat ${f} | wc -l) $(cat ${f} | sort -u | wc -l)"
 done
