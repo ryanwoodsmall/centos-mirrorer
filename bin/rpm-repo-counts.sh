@@ -11,12 +11,12 @@ for i in ${REPOLIST} ; do
   i="${i%:*}"
   d="${REPOBASE}/${i//://}"
   echo "${d}"
-  i=( $(echo "${i}" | tr : '\n') )
-  o="${i[0]}"
-  v="${i[1]}"
-  a="${i[2]}"
-  r="${i[3]}"
-  f="/tmp/${o}-${v}-${a}-${r}.out"
+  IFS=":" read -a a <<< "${i}"
+  o="${a[0]}" # os
+  v="${a[1]}" # ver
+  c="${a[2]}" # cpu
+  r="${a[3]}" # repo
+  f="/tmp/${o}-${v}-${c}-${r}.out"
   find "${d}" -type f -name \*.rpm | awk -F/ '{print $NF}' | sort > "${f}"
   echo "${f} $(cat ${f} | wc -l) $(cat ${f} | sort -u | wc -l)"
 done
